@@ -23,29 +23,41 @@ module.exports = async (req, res) => {
       });
     }
 
-    const image = req.files.image[0].filename;
+    if (req.files.image != undefined) {
+      const image = req.files.image[0].filename;
+
+      const newLink = await Brand.update(
+        {
+          title: title,
+          description: description,
+          image: image,
+        },
+        {
+          where: {
+            id: id,
+          },
+        }
+      );
+    } else {
+      const newLink = await Brand.update(
+        {
+          title: title,
+          description: description,
+        },
+        {
+          where: {
+            id: id,
+          },
+        }
+      );
+    }
 
     // jika gambar kosong
-    const newLink = await Brand.update(
-      {
-        title: title,
-        description: description,
-        image: image,
-      },
-      {
-        where: {
-          id: id,
-        },
-      }
-    );
 
     let linkToJson = JSON.parse(links);
 
     linkToJson.map(async (link, index) => {
-    
-        
       if (link.id != 0) {
-          
         const aa = await Links.update(
           {
             title: link.titleLink,
@@ -58,8 +70,6 @@ module.exports = async (req, res) => {
             },
           }
         );
-
-
       } else {
         //   asa
         await Links.create({

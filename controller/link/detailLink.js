@@ -19,15 +19,6 @@ module.exports = async (req, res) => {
       });
     }
 
-    const updateBrand = await Brand.update(
-      {
-        viewCount: brandFromDB.viewCount + 1,
-      },
-      {
-        where: { id: id },
-      }
-    );
-
     let DetailBrand;
 
     const brand = await Brand.findOne({
@@ -58,7 +49,7 @@ module.exports = async (req, res) => {
           description: brand.description,
           uniqueLink: brand.uniqueLink,
           image: url + brand.image,
-          
+
           viewCount: brand.viewCount,
           links: brand.links.map((l) => ({
             id: l.id,
