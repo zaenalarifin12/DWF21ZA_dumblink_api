@@ -1,5 +1,6 @@
 const { Links, Brand } = require("../../models");
 const Joi = require("joi");
+let fs = require("fs");
 
 module.exports = async (req, res) => {
   try {
@@ -8,8 +9,8 @@ module.exports = async (req, res) => {
     const { title, description, links } = req.body;
 
     const schema = Joi.object({
-      title: Joi.string().min(5).max(40).required(),
-      description: Joi.string().min(5).max(40).required(),
+      title: Joi.string().max(40).required(),
+      description: Joi.string().max(40).required(),
     });
 
     const { error } = schema.validate({ title, description });
@@ -24,9 +25,30 @@ module.exports = async (req, res) => {
     }
 
     if (req.files.image != undefined) {
+      // old brand form database
+      const oldBrand = await Brand.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+
+      // remove image from server
+      fs.stat(`./uploads/${oldBrand.image}`, function (err, stats) {
+        console.log(stats);
+
+        if (err) {
+          return console.error(err);
+        }
+
+        fs.unlink(`./uploads/${oldBrand.image}`, function (err) {
+          if (err) return console.log(err);
+          console.log("file deleted successfully");
+        });
+      });
+
       const image = req.files.image[0].filename;
 
-      const newLink = await Brand.update(
+      await Brand.update(
         {
           title: title,
           description: description,
@@ -39,7 +61,7 @@ module.exports = async (req, res) => {
         }
       );
     } else {
-      const newLink = await Brand.update(
+      await Brand.update(
         {
           title: title,
           description: description,

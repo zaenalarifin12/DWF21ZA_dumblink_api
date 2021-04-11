@@ -22,6 +22,7 @@ module.exports = async (req, res) => {
           "description",
           "uniqueLink",
           "viewCount",
+          "active"
         ],
         order: [["createdAt", "DESC"]],
       }).then((brand) => {
@@ -35,6 +36,7 @@ module.exports = async (req, res) => {
             uniqueLink: b.uniqueLink,
             image: url + b.image,
             viewCount: b.viewCount,
+            active: b.active
           }));
         }
       });
@@ -50,6 +52,7 @@ module.exports = async (req, res) => {
           "description",
           "uniqueLink",
           "viewCount",
+          "active"
         ],
         order: [["createdAt", "DESC"]],
       }).then((brand) => {
@@ -63,6 +66,7 @@ module.exports = async (req, res) => {
             uniqueLink: b.uniqueLink,
             image: url + b.image,
             viewCount: b.viewCount,
+            active: b.active
           }));
         }
       });

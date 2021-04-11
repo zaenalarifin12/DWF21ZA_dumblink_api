@@ -5,6 +5,9 @@ const deleteLink = require("./deleteLink");
 const uploadImageLink = require("./uploadImageLink");
 const detailLink = require("./detailLink");
 const editLink = require("./editLink");
+const activeLink = require("./activeLink");
+const nonaktifLink = require("./nonaktiLink");
+
 
 module.exports = {
   postLink,
@@ -14,4 +17,7 @@ module.exports = {
   uploadImageLink,
   detailLink,
   editLink,
+  activeLink
+  ,
+  nonaktifLink
 };

@@ -29,6 +29,11 @@ router.post(
   LinkController.uploadImageLink
 );
 router.get("/link/:id", authenticated, LinkController.detailLink);
+
+router.put("/link/:id/active", authenticated, LinkController.activeLink);
+router.put("/link/:id/nonaktif", authenticated, LinkController.nonaktifLink);
+
+
 router.get("/link/show/:uniqueLink", LinkController.showLink);
 router.put(
   "/link/:id",

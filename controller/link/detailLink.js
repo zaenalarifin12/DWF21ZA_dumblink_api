@@ -47,6 +47,7 @@ module.exports = async (req, res) => {
           id: brand.id,
           title: brand.title,
           description: brand.description,
+          template: brand.template,
           uniqueLink: brand.uniqueLink,
           image: url + brand.image,
 

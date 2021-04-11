@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
     const { uniqueLink } = req.params;
 
     const brandFromDB = await Brand.findOne({
-      where: { uniqueLink: uniqueLink },
+      where: { uniqueLink: uniqueLink, active: 1 },
     });
 
     if (brandFromDB == null) {

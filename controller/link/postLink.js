@@ -1,6 +1,5 @@
 const { Links, Brand } = require("../../models");
 const Joi = require("joi");
-const multer = require("multer");
 
 function makeid(length) {
   var result = "";
@@ -18,11 +17,12 @@ module.exports = async (req, res) => {
     const { template, title, description, links } = req.body;
 
     const schema = Joi.object({
-      title: Joi.string().min(5).max(40).required(),
-      description: Joi.string().min(5).max(40).required(),
+      title: Joi.string().max(40).required(),
+      description: Joi.string().max(40).required(),
+      links: Joi.required(),
     });
 
-    const { error } = schema.validate({ title, description });
+    const { error } = schema.validate({ title, description, links });
 
     if (error) {
       return res.status(400).json({
